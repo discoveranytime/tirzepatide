@@ -53,15 +53,15 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);
   font-size:1.06rem;line-height:1.75;overflow-x:clip;-webkit-font-smoothing:antialiased}
 .bg-grad{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(900px 620px at 12% -6%, rgba(2,132,199,.18), transparent 60%),
-    radial-gradient(820px 600px at 88% 22%, rgba(194,65,12,.12), transparent 60%),
-    radial-gradient(1000px 800px at 50% 110%, rgba(13,148,136,.12), transparent 62%),
-    radial-gradient(700px 500px at 78% 78%, rgba(251,113,133,.06), transparent 60%)}
+    radial-gradient(900px 620px at 12% -6%, rgba(2,132,199,0.288), transparent 60%),
+    radial-gradient(820px 600px at 88% 22%, rgba(194,65,12,0.192), transparent 60%),
+    radial-gradient(1000px 800px at 50% 110%, rgba(13,148,136,0.192), transparent 62%),
+    radial-gradient(700px 500px at 78% 78%, rgba(251,113,133,0.096), transparent 60%)}
 #dots{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.85}
 .orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(90px)}
-.o1{width:520px;height:520px;left:-140px;top:6%;background:radial-gradient(circle,rgba(2,132,199,.15),transparent 70%);animation:drift1 38s ease-in-out infinite alternate}
-.o2{width:460px;height:460px;right:-120px;top:38%;background:radial-gradient(circle,rgba(194,65,12,.12),transparent 70%);animation:drift2 46s ease-in-out infinite alternate}
-.o3{width:430px;height:430px;left:24%;bottom:-160px;background:radial-gradient(circle,rgba(13,148,136,.12),transparent 70%);animation:drift3 54s ease-in-out infinite alternate}
+.o1{width:520px;height:520px;left:-140px;top:6%;background:radial-gradient(circle,rgba(2,132,199,0.24),transparent 70%);animation:drift1 38s ease-in-out infinite alternate}
+.o2{width:460px;height:460px;right:-120px;top:38%;background:radial-gradient(circle,rgba(194,65,12,0.192),transparent 70%);animation:drift2 46s ease-in-out infinite alternate}
+.o3{width:430px;height:430px;left:24%;bottom:-160px;background:radial-gradient(circle,rgba(13,148,136,0.192),transparent 70%);animation:drift3 54s ease-in-out infinite alternate}
 @keyframes drift1{from{transform:translate(0,0)}to{transform:translate(120px,80px)}}
 @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-100px,-70px)}}
 @keyframes drift3{from{transform:translate(0,0)}to{transform:translate(90px,-80px)}}

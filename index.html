@@ -379,6 +379,149 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
 @keyframes tiltK{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 .tilt{transform-box:fill-box;transform-origin:center;animation:tiltK 6s ease-in-out infinite}
 </style>
+<style>
+/* ===== mini-poll component ===== */
+/* Mini-poll component styles — compact, theme-aware via CSS vars with fallbacks.
+   Works inside the Retatrutide infographic (which defines --card, --ink, etc.)
+   and standalone. */
+mini-poll { display: block; }
+.mpoll {
+  max-width: 620px;
+  margin: 2.2rem auto;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background:
+    linear-gradient(var(--card, #0d1020), var(--card, #0d1020)) padding-box,
+    linear-gradient(135deg, var(--mpc1, #7cc7ff), var(--mpc2, #5eead4)) border-box;
+  font-family: inherit;
+  overflow: hidden;
+}
+/* slim collapsed teaser */
+.mpoll-teaser {
+  display: flex; align-items: center; gap: .6rem;
+  width: 100%; cursor: pointer; text-align: left;
+  padding: .75rem 1rem; border: 0; background: transparent;
+  color: var(--muted, #a9b1c9); font-size: .88rem;
+}
+.mpoll-teaser:hover { background: rgba(255,255,255,.03); }
+.mpoll-teaser:focus-visible { outline: 2px solid var(--amber, #fbbf24); outline-offset: -2px; }
+.mpoll-teaser-dot {
+  flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--mpc1, #7cc7ff);
+  box-shadow: 0 0 10px var(--mpc1, #7cc7ff);
+  animation: mpulse 2.4s ease-in-out infinite;
+}
+@keyframes mpulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+.mpoll-teaser-text {
+  flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mpoll-teaser-chev {
+  flex: 0 0 auto; transition: transform .2s; color: var(--faint, #7f88a5);
+}
+.mpoll.open .mpoll-teaser-chev { transform: rotate(180deg); }
+/* animated expand/collapse */
+.mpoll-bodywrap {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .45s cubic-bezier(.25,.8,.3,1);
+}
+.mpoll.open .mpoll-bodywrap { grid-template-rows: 1fr; }
+.mpoll-clip { overflow: hidden; min-height: 0; }
+.mpoll-body {
+  padding: 0 1.4rem 1.3rem;
+  opacity: 0; transform: translateY(-10px);
+  transition: opacity .32s ease, transform .45s cubic-bezier(.25,.8,.3,1);
+}
+.mpoll.open .mpoll-body { opacity: 1; transform: translateY(0); }
+.mpoll-kicker {
+  font-size: .78rem; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted, #a9b1c9);
+  margin-bottom: .6rem;
+}
+/* single top-of-page banner (preview mode only) */
+.mpoll-topbanner {
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  max-width: 620px; margin: 0 auto 1.4rem; padding: .6rem 1.2rem;
+  border-radius: 999px; font-size: .82rem; font-weight: 700; color: #0a0c14;
+  background: linear-gradient(100deg, var(--acc1, #7cc7ff), var(--acc2, #5eead4), var(--acc3, #fb923c));
+}
+.mpoll-topbanner-dot {
+  flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%;
+  background: #0a0c14;
+  animation: mpulse 2.4s ease-in-out infinite;
+}
+.mpoll-field { border: 0; margin: 0; padding: 0; }
+.mpoll-q {
+  font-size: 1.12rem; font-weight: 800; line-height: 1.35;
+  color: var(--ink, #edf0f9); margin-bottom: .9rem; padding: 0;
+}
+.mpoll-opts { display: grid; gap: .55rem; }
+.mpoll-opt {
+  display: flex; align-items: center; gap: .7rem;
+  width: 100%; text-align: left; cursor: pointer;
+  padding: .72rem .9rem; border-radius: 12px;
+  border: 1px solid var(--line, rgba(255,255,255,.09));
+  background: rgba(255,255,255,.03); color: var(--ink, #edf0f9);
+  font-size: .95rem; transition: border-color .15s, background .15s, transform .15s;
+}
+.mpoll-opt:hover { border-color: var(--amber, #fbbf24); background: rgba(255,255,255,.05); }
+.mpoll-opt:focus-visible { outline: 2px solid var(--amber, #fbbf24); outline-offset: 2px; }
+.mpoll-opt.sel { border-color: var(--amber, #fbbf24); background: rgba(251,191,36,.10); }
+.mpoll-emoji { font-size: 1.25rem; flex: 0 0 auto; }
+.mpoll-label { flex: 1; }
+.mpoll-vote, .mpoll-again {
+  display: block; width: 100%; margin-top: .9rem; padding: .8rem;
+  border: 0; border-radius: 12px; cursor: pointer;
+  font-size: 1rem; font-weight: 800; color: #0a0c14;
+  background: linear-gradient(100deg, var(--acc1, #7cc7ff), var(--acc2, #5eead4));
+  transition: transform .15s, opacity .15s;
+}
+.mpoll-vote:hover:not(:disabled), .mpoll-again:hover { transform: translateY(-1px); }
+.mpoll-vote:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.mpoll-note {
+  margin-top: .7rem; font-size: .88rem; color: #fbbf24;
+  border: 1px dashed rgba(251,191,36,.4); border-radius: 10px; padding: .6rem .8rem;
+}
+.mpoll-bars { display: grid; gap: .6rem; margin-top: .4rem; }
+.mpoll-rowtop {
+  display: flex; justify-content: space-between; gap: .8rem;
+  font-size: .9rem; color: var(--ink, #edf0f9); margin-bottom: .28rem;
+}
+.mpoll-pct { font-weight: 800; color: var(--muted, #a9b1c9); flex: 0 0 auto; }
+.mpoll-mine { color: var(--amber, #fbbf24); font-weight: 700; font-size: .8rem; }
+.mpoll-track {
+  height: 10px; border-radius: 999px; overflow: hidden;
+  background: rgba(255,255,255,.07);
+}
+.mpoll-fill {
+  height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--acc1, #7cc7ff), var(--acc2, #5eead4), var(--acc3, #fb923c));
+  transition: width .9s cubic-bezier(.22,.8,.3,1);
+}
+.mpoll-row.mine .mpoll-fill { box-shadow: 0 0 10px rgba(251,191,36,.45); }
+.mpoll-total {
+  margin-top: .8rem; font-size: .85rem; color: var(--faint, #7f88a5);
+}
+.mpoll-sub { margin-top: .8rem; font-size: .9rem; color: var(--muted, #a9b1c9); }
+.mpoll-count { font-weight: 800; color: var(--ink, #edf0f9); font-variant-numeric: tabular-nums; }
+.mpoll-disc {
+  margin-top: .9rem; padding-top: .7rem;
+  border-top: 1px dashed var(--line, rgba(255,255,255,.09));
+  font-size: .76rem; line-height: 1.5; color: var(--faint, #7f88a5);
+}
+.mpoll-loading { color: var(--faint, #7f88a5); font-size: .9rem; padding: .6rem 0; }
+@media (prefers-reduced-motion: reduce) {
+  .mpoll-opt, .mpoll-vote, .mpoll-again, .mpoll-fill, .mpoll-teaser-chev,
+  .mpoll-bodywrap, .mpoll-body { transition: none; }
+  .mpoll-teaser-dot { animation: none; }
+  .mpoll-body { opacity: 1; transform: none; }
+}
+@media (max-width: 560px) {
+  .mpoll { margin: 1.6rem .2rem; }
+  .mpoll-body { padding: 0 1rem 1.1rem; }
+  .mpoll-q { font-size: 1.02rem; }
+}
+
+</style>
 </head>
 <body>
 <svg class="sr-only" aria-hidden="true" focusable="false">
@@ -463,6 +606,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   </div>
   <div class="plain reveal"><span class="plabel">Plain English</span><b>Think of it as a lab-built copy of two of your gut&rsquo;s &ldquo;I&rsquo;m full&rdquo; hormones, fused into one long-lasting molecule</b> — with a fatty tail that lets it hitchhike on a blood protein, so a single weekly dose keeps working for days.</div>
 </section>
+<mini-poll slug="tirz-mini-ch1"
+  data-question="Had you heard of tirzepatide before today?"
+  data-answers='[["🆕", "No — brand new to me"], ["👀", "Heard the name, that&#39;s it"], ["💉", "Know it as Mounjaro/Zepbound"], ["📖", "Read a bit about it"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 2 ============ -->
 <section class="chapter" id="ch2">
   <span class="eyebrow"><span class="n">02</span>Origin story</span>
@@ -505,6 +652,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   </div>
   <div class="plain reveal"><span class="plabel">Plain English</span><b>Everyone thought GIP was useless for diabetes — then someone tried it <i>with</i> GLP-1 instead of instead of it.</b> The combination did what neither could alone, and a decade later it was the best-selling drug in its class.</div>
 </section>
+<mini-poll slug="tirz-mini-ch2"
+  data-question="The twincretin bet — two receptors instead of one. Your take?"
+  data-answers='[["🔥", "Elegant idea"], ["🤔", "Clever, but prove it"], ["📊", "Just show me results"], ["😐", "One was enough"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 3 ============ -->
 <section class="chapter" id="ch3">
   <span class="eyebrow"><span class="n">03</span>How it works</span>
@@ -541,6 +692,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   <div class="note reveal">Labels describe populations, not people. Whether it&rsquo;s appropriate for any individual — medical history, other medications, pregnancy plans, cost — is a clinician&rsquo;s call, not a checklist on a web page.</div>
   <div class="plain reveal"><span class="plabel">Plain English</span><b>GLP-1 is the brake pedal on hunger; GIP is the skilled co-driver who makes the braking smoother and stronger.</b> We know the car slows down (proven). We&rsquo;re still learning exactly how the co-driver helps (inferred).</div>
 </section>
+<mini-poll slug="tirz-mini-ch3"
+  data-question="Which claimed effect interests you most?"
+  data-answers='[["🍽️", "Appetite quieting"], ["🩸", "Blood sugar control"], ["🧠", "Less food noise"], ["⚡", "All of them together"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 4 ============ -->
 <section class="chapter" id="ch4">
   <span class="eyebrow"><span class="n">04</span>Evidence check</span>
@@ -585,6 +740,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   </div>
   <div class="plain reveal"><span class="plabel">Plain English</span><b>Each generation added one more hormone switch and gained roughly six to seven percentage points of weight loss.</b> Tirzepatide is the middle generation — and the only one of the three you can currently get prescribed.</div>
 </section>
+<mini-poll slug="tirz-mini-ch4"
+  data-question="SURMOUNT's −20.9% — what's your gut reaction?"
+  data-answers='[["🤯", "Bigger than I expected"], ["👍", "About what I expected"], ["📊", "Numbers need context"], ["🔍", "I want the full table"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 5 ============ -->
 <section class="chapter" id="ch5">
   <span class="eyebrow"><span class="n">05</span>What people say</span>
@@ -609,6 +768,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   </div>
   <div class="note reveal">Patterns worth noticing: the &ldquo;food noise&rdquo; quieting, escalation-phase GI misery, the 5&ndash;8&nbsp;mg sweet spot, and cost dominating every conversation. None of this is data — but it&rsquo;s the texture the trials don&rsquo;t capture.</div>
 </section>
+<mini-poll slug="tirz-mini-ch5"
+  data-question="Online stories vs trial data — which sways you more?"
+  data-answers='[["📊", "Trials, every time"], ["💬", "Real people&#39;s stories"], ["⚖️", "A bit of both"], ["🤷", "Still deciding"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 6 ============ -->
 <section class="chapter" id="ch6">
   <span class="eyebrow"><span class="n">06</span>Trial dosing</span>
@@ -642,6 +805,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   <div class="plain reveal"><span class="plabel">Plain English</span><b>Jumping straight to 15&nbsp;mg would be like cannonballing into ice water — the gut rebels.</b> The 4-week steps let nausea peak and fade before the next increase, which is why the worst side effects clustered in the escalation phase and settled later.</div>
   <div class="note reveal">Why this chapter exists: the dose arms and the ladder are <strong>published trial design</strong> — useful context for understanding the results. This page deliberately contains no personal dosing guidance of any kind.</div>
 </section>
+<mini-poll slug="tirz-mini-ch6"
+  data-question="What interests you most about the dosing story?"
+  data-answers='[["🪜", "The step-up design"], ["🎯", "Finding the sweet spot"], ["📅", "Once-weekly dosing"], ["📋", "Just the label facts"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 7 ============ -->
 <section class="chapter" id="ch7">
   <span class="eyebrow"><span class="n">07</span>Risks &amp; unknowns</span>
@@ -681,6 +848,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   </div>
   <div class="plain reveal"><span class="plabel">Plain English</span><b>Expect stomach trouble while your dose climbs — that&rsquo;s the price of admission and it usually settles.</b> Behind it sit the rare-but-serious class risks that are the real reason this is a prescription drug with monitoring, not a supplement. And beyond <i>that</i> sit the honest unknowns no trial has lived long enough to answer.</div>
 </section>
+<mini-poll slug="tirz-mini-ch7"
+  data-question="What's your biggest question about the downsides?"
+  data-answers='[["🤢", "Gut side effects"], ["💓", "Heart effects"], ["🦋", "The thyroid signal"], ["❓", "Long-term unknowns"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 8 ============ -->
 <section class="chapter" id="ch8">
   <span class="eyebrow"><span class="n">08</span>Glossary</span>
@@ -749,6 +920,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
     </div></div>
   </div>
 </section>
+<mini-poll slug="tirz-mini-ch8"
+  data-question="Did the glossary clear things up?"
+  data-answers='[["✅", "Yes, much clearer"], ["📖", "Somewhat"], ["🤷", "Still fuzzy"], ["⏭️", "Skipped it, honestly"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 9 ============ -->
 <section class="chapter" id="ch9">
   <span class="eyebrow"><span class="n">09</span>Takeaways</span>
@@ -767,6 +942,10 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
     <div class="take reveal"><div class="tk">🤢</div><h4>The nausea curve is real</h4><p><strong>'It gets better' is the standard forum reassurance</strong> — dose-escalation horror stories on one side, smooth rides on the other. Titration is the whole game.</p></div>
   </div>
 </section>
+<mini-poll slug="tirz-mini-ch9"
+  data-question="How would you rate this infographic?"
+  data-answers='[["😍", "⭐⭐⭐⭐⭐ · Loved it"], ["🙂", "⭐⭐⭐⭐ · Good stuff"], ["😐", "⭐⭐⭐ · It&#39;s okay"]]'>
+</mini-poll>
 <!-- ============ CHAPTER 10 ============ -->
 <section class="chapter" id="ch10">
   <span class="eyebrow"><span class="n">10</span>Limits</span>
@@ -1015,6 +1194,445 @@ var fio=new IntersectionObserver(function(es){
 },{threshold:0.35});
 fio.observe(document.querySelector("footer"));
 })();
+</script>
+<script>
+/* Mini-poll backend config. Empty = preview mode (local votes, 3-day cooldown).
+   To go live: fill in your Supabase project URL + anon key (see poll-admin README). */
+window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "",
+  accents: ["#7cc7ff", "#5eead4", "#38bdf8", "#2dd4bf", "#67e8f9", "#0ea5e9", "#a5f3fc", "#fbbf24", "#fb923c"] };
+</script>
+<script>
+/* Mini-poll web component — vanilla JS, no dependencies.
+   Usage:
+     <mini-poll slug="reta-mini-ch1"
+       data-question="Had you heard of retatrutide before today?"
+       data-answers='[["🆕","No — brand new to me"],["👀","Heard the name"]]'>
+     </mini-poll>
+   Add `data-expanded` to start open; otherwise polls start as a slim,
+   collapsed teaser (tap to expand). Questions/answers come from the backend
+   when configured; data-* attributes are the preview fallback.
+   Configure once per page:
+     window.MINI_POLL_CONFIG = { supabaseUrl: "https://xyz.supabase.co",
+                                 anonKey: "eyJ...", turnstileSiteKey: "" };
+   No backend configured -> honest preview mode (localStorage, 3-day cooldown,
+   clearly badged). */
+(function () {
+  'use strict';
+  var CFG = window.MINI_POLL_CONFIG || {};
+  var API = (CFG.supabaseUrl || '').replace(/\/$/, '');
+  var ANON = CFG.anonKey || '';
+
+  function lsKey(slug) { return 'minipoll:' + slug; }
+
+  async function fingerprint() {
+    try {
+      var c = document.createElement('canvas');
+      var x = c.getContext('2d');
+      x.textBaseline = 'top'; x.font = '14px Arial';
+      x.fillText('poll-fp::' + navigator.userAgent, 2, 2);
+      var raw = [navigator.userAgent, screen.width + 'x' + screen.height,
+        screen.colorDepth, Intl.DateTimeFormat().resolvedOptions().timeZone,
+        navigator.language, c.toDataURL()].join('|');
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+      return Array.from(new Uint8Array(buf)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    } catch (e) { return 'fp-' + Math.random().toString(36).slice(2); }
+  }
+
+  function apiHeaders() {
+    return { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON, 'Content-Type': 'application/json' };
+  }
+  async function restGet(path) {
+    var r = await fetch(API + '/rest/v1/' + path, { headers: apiHeaders() });
+    if (!r.ok) throw new Error('api ' + r.status);
+    return r.json();
+  }
+  async function rpc(name, body) {
+    var r = await fetch(API + '/rest/v1/rpc/' + name, {
+      method: 'POST', headers: apiHeaders(), body: JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error('rpc ' + r.status);
+    return r.json();
+  }
+  async function edge(name, body) {
+    var r = await fetch(API + '/functions/v1/' + name, {
+      method: 'POST', headers: apiHeaders(), body: JSON.stringify(body)
+    });
+    var data = await r.json().catch(function () { return {}; });
+    return { status: r.status, data: data };
+  }
+
+  function fmtCountdown(ms) {
+    if (ms <= 0) return 'now';
+    var s = Math.floor(ms / 1000);
+    var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600),
+        m = Math.floor(s % 3600 / 60), ss = s % 60;
+    if (d > 0) return d + 'd ' + h + 'h';
+    if (h > 0) return h + 'h ' + m + 'm';
+    if (m > 0) return m + 'm ' + ss + 's';
+    return ss + 's';
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* per-poll accent: distinct pulsing-dot color + gradient border per poll.
+     Palette comes from window.MINI_POLL_CONFIG.accents when the page sets one,
+     otherwise the default nine-color set. */
+  var ACCENTS = (window.MINI_POLL_CONFIG && window.MINI_POLL_CONFIG.accents) ||
+                ['#7cc7ff', '#5eead4', '#fb923c', '#a78bfa', '#f472b6',
+                 '#a3e635', '#fbbf24', '#fb7185', '#22d3ee'];
+  function pollAccents(slug) {
+    var m = /ch(\d+)/.exec(slug || '');
+    var i = m ? parseInt(m[1], 10) - 1 : 0;
+    i = ((i % ACCENTS.length) + ACCENTS.length) % ACCENTS.length;
+    return [ACCENTS[i], ACCENTS[(i + 3) % ACCENTS.length]];
+  }
+
+  function MiniPoll() { return Reflect.construct(HTMLElement, [], MiniPoll); }
+  MiniPoll.prototype = Object.create(HTMLElement.prototype);
+  Object.setPrototypeOf(MiniPoll, HTMLElement);
+
+  MiniPoll.prototype.connectedCallback = function () {
+    var self = this;
+    this._slug = this.getAttribute('slug') || '';
+    this._selected = null;
+    this._timer = null;
+    this._refreshTimer = null;
+    this._open = this.hasAttribute('data-expanded');
+    if (!this._slug) { this.style.display = 'none'; return; }
+    this.renderShell();
+    fingerprint().then(function (fp) {
+      self._fp = fp;
+      self.boot();
+    });
+  };
+
+  MiniPoll.prototype.disconnectedCallback = function () {
+    if (this._timer) clearInterval(this._timer);
+    if (this._refreshTimer) clearInterval(this._refreshTimer);
+  };
+
+  /* ---------------- shell: slim teaser + collapsible body ---------------- */
+  MiniPoll.prototype.renderShell = function () {
+    this.innerHTML =
+      '<div class="mpoll">' +
+      '<button type="button" class="mpoll-teaser" aria-expanded="' + (this._open ? 'true' : 'false') + '">' +
+      '<span class="mpoll-teaser-dot" aria-hidden="true"></span>' +
+      '<span class="mpoll-teaser-text"><span class="mpoll-teaser-q">loading…</span></span>' +
+      '<span class="mpoll-teaser-chev" aria-hidden="true">▾</span>' +
+      '</button>' +
+      '<div class="mpoll-bodywrap"' + (this._open ? '' : ' inert') + '>' +
+      '<div class="mpoll-clip"><div class="mpoll-body">' +
+      '<div class="mpoll-loading" aria-live="polite">Loading poll…</div>' +
+      '</div></div></div></div>';
+    this._root = this.querySelector('.mpoll');
+    this._teaser = this.querySelector('.mpoll-teaser');
+    this._teaserQ = this.querySelector('.mpoll-teaser-q');
+    this._wrap = this.querySelector('.mpoll-bodywrap');
+    this._body = this.querySelector('.mpoll-body');
+    var ac = pollAccents(this._slug);
+    this._root.style.setProperty('--mpc1', ac[0]);
+    this._root.style.setProperty('--mpc2', ac[1]);
+    if (this._open) this._root.classList.add('open');
+    var self = this;
+    this._teaser.addEventListener('click', function () { self.toggle(); });
+  };
+
+  MiniPoll.prototype.toggle = function (force) {
+    this._open = typeof force === 'boolean' ? force : !this._open;
+    this._teaser.setAttribute('aria-expanded', this._open ? 'true' : 'false');
+    this._root.classList.toggle('open', this._open);
+    this._wrap.inert = !this._open;
+  };
+
+  MiniPoll.prototype.setTeaser = function (q, voted) {
+    this._teaserQ.textContent = voted ? '✓ you voted · see results' : q;
+  };
+
+  MiniPoll.prototype.showPreviewBanner = function () {
+    if (window.__mpollBannerShown) return;
+    window.__mpollBannerShown = true;
+    var d = document.createElement('div');
+    d.className = 'mpoll-topbanner';
+    d.setAttribute('role', 'note');
+    d.innerHTML = '<span class="mpoll-topbanner-dot" aria-hidden="true"></span>' +
+      '<span>Votes stay in this browser</span>';
+    var main = document.querySelector('main');
+    if (main) { main.insertBefore(d, main.firstChild); return; }
+    var firstChapter = document.querySelector('section.chapter');
+    if (firstChapter && firstChapter.parentNode) {
+      firstChapter.parentNode.insertBefore(d, firstChapter);
+    }
+  };
+
+  MiniPoll.prototype.boot = async function () {
+    try {
+      if (!API) return this.bootPreview();
+      var rows = await restGet('polls?slug=eq.' + encodeURIComponent(this._slug) +
+        '&select=id,slug,title,description,status,hide_results_until_close,require_captcha,disclaimer,cooldown_hours');
+      if (!rows.length) { this.style.display = 'none'; return; }
+      this._poll = rows[0];
+      this.setTeaser(this._poll.description || 'Quick poll', false);
+      var opts = await restGet('poll_options?poll_id=eq.' + this._poll.id +
+        '&select=id,label,emoji,position&order=position.asc');
+      this._options = opts;
+      var st = await edge('vote-status', { poll_id: this._poll.id, fingerprint: this._fp });
+      var s = st.data || {};
+      if (this._poll.status === 'closed') {
+        this.setTeaser(this._poll.description || 'Quick poll', !!s.voted);
+        this.showResults(s.results || { options: [], total: 0 }, s.your_option_id, 'closed');
+      } else if (s.voted && !s.can_revote) {
+        this.setTeaser(this._poll.description || 'Quick poll', true);
+        this.showResults(s.results, s.your_option_id, 'cooldown', s.revote_at);
+      } else {
+        this.showVote();
+      }
+      var self = this;
+      this._refreshTimer = setInterval(function () { self.softRefresh(); }, 45000);
+    } catch (e) {
+      this.bootPreview();
+    }
+  };
+
+  MiniPoll.prototype.softRefresh = async function () {
+    if (!API || !this._poll || this._mode !== 'results' || document.hidden || !this._open) return;
+    try {
+      var res = await rpc('get_public_results', { p_poll_id: this._poll.id });
+      this._lastResults = res;
+      this.paintBars(res);
+    } catch (e) { /* silent */ }
+  };
+
+  /* ---------------- preview mode (no backend) ---------------- */
+  MiniPoll.prototype.bootPreview = function () {
+    this.showPreviewBanner();
+    var q = this.getAttribute('data-question') || 'Quick poll';
+    var answers = [];
+    try { answers = JSON.parse(this.getAttribute('data-answers') || '[]'); } catch (e) {}
+    this._poll = { id: 'preview', title: '🧬 Quick poll', description: q,
+      status: 'open', hide_results_until_close: false, disclaimer: '',
+      cooldown_hours: 72 };
+    this._options = answers.map(function (a, i) {
+      return { id: 'opt' + i, label: a[1], emoji: a[0] };
+    });
+    this._preview = true;
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(lsKey(this._slug)) || 'null'); } catch (e) {}
+    var now = Date.now();
+    if (saved && now - saved.voted_at < 72 * 3600 * 1000) {
+      this._previewVotes = saved.tally || {};
+      this.setTeaser(q, true);
+      this.showResults(this.tallyResults(), saved.option_id, 'cooldown',
+        new Date(saved.voted_at + 72 * 3600 * 1000).toISOString(), true);
+    } else {
+      this.setTeaser(q, false);
+      this.showVote(true);
+    }
+  };
+
+  MiniPoll.prototype.tallyResults = function () {
+    var tally = this._previewVotes || {};
+    var total = Object.keys(tally).reduce(function (s, k) { return s + tally[k]; }, 0);
+    return {
+      hidden: false, total: total,
+      options: this._options.map(function (o) {
+        var v = tally[o.id] || 0;
+        return { option_id: o.id, label: o.label, emoji: o.emoji, votes: v,
+          pct: total ? Math.round(v / total * 1000) / 10 : 0 };
+      })
+    };
+  };
+
+  /* ---------------- vote form ---------------- */
+  MiniPoll.prototype.showVote = function (isPreview) {
+    var self = this;
+    this._mode = 'vote';
+    this._selected = null;
+    var opts = this._options.map(function (o, i) {
+      return '<button type="button" class="mpoll-opt" data-i="' + i + '" aria-pressed="false">' +
+        '<span class="mpoll-emoji" aria-hidden="true">' + esc(o.emoji) + '</span>' +
+        '<span class="mpoll-label">' + esc(o.label) + '</span></button>';
+    }).join('');
+    this._body.innerHTML =
+      '<div class="mpoll-kicker">' + esc(this._poll.title || '🧬 Quick poll') + '</div>' +
+      '<fieldset class="mpoll-field"><legend class="mpoll-q">' + esc(this._poll.description) + '</legend>' +
+      '<div class="mpoll-opts">' + opts + '</div></fieldset>' +
+      '<button type="button" class="mpoll-vote" disabled>Vote</button>' +
+      (this._poll.disclaimer ? '<div class="mpoll-disc">' + esc(this._poll.disclaimer) + '</div>' : '');
+    var btns = this._body.querySelectorAll('.mpoll-opt');
+    var voteBtn = this._body.querySelector('.mpoll-vote');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.remove('sel'); x.setAttribute('aria-pressed', 'false'); });
+        b.classList.add('sel'); b.setAttribute('aria-pressed', 'true');
+        self._selected = parseInt(b.getAttribute('data-i'), 10);
+        voteBtn.disabled = false;
+      });
+    });
+    voteBtn.addEventListener('click', function () { self.castVote(); });
+  };
+
+  MiniPoll.prototype.castVote = async function () {
+    var self = this;
+    var opt = this._options[this._selected];
+    if (!opt) return;
+    var btn = this._body.querySelector('.mpoll-vote');
+    btn.disabled = true; btn.textContent = 'Voting…';
+    if (this._preview) {
+      var tally = this._previewVotes || {};
+      tally[opt.id] = (tally[opt.id] || 0) + 1;
+      this._previewVotes = tally;
+      try {
+        localStorage.setItem(lsKey(this._slug), JSON.stringify({
+          option_id: opt.id, voted_at: Date.now(), tally: tally }));
+      } catch (e) {}
+      this.setTeaser(this._poll.description, true);
+      this.showResults(this.tallyResults(), opt.id, 'cooldown',
+        new Date(Date.now() + 72 * 3600 * 1000).toISOString(), true);
+      return;
+    }
+    try {
+      var body = { poll_id: this._poll.id, option_id: opt.id, fingerprint: this._fp };
+      var res = await edge('mini-vote', body);
+      var d = res.data || {};
+      if (d.error === 'cooldown') {
+        this.setTeaser(this._poll.description, true);
+        this.showResults(d.results, d.your_option_id, 'cooldown', d.revote_at);
+      } else if (d.ok) {
+        try {
+          localStorage.setItem(lsKey(this._slug), JSON.stringify({
+            option_id: opt.id, voted_at: Date.now() }));
+        } catch (e) {}
+        this.setTeaser(this._poll.description, true);
+        this.showResults(d.results, d.your_option_id, 'cooldown', d.revote_at);
+      } else {
+        btn.disabled = false; btn.textContent = 'Vote';
+        this.note(this.friendlyError(d.error));
+      }
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Vote';
+      this.note('Could not reach the poll server. Try again in a moment.');
+    }
+  };
+
+  MiniPoll.prototype.friendlyError = function (code) {
+    return { rate_limited: 'Too many votes from your network right now — try again later.',
+      banned: 'Voting is not available for this device.',
+      poll_closed: 'Voting has closed for this poll.',
+      captcha_failed: 'Please complete the CAPTCHA and try again.',
+      invalid_option: 'That answer is no longer available.' }[code] ||
+      'Something went wrong. Please try again.';
+  };
+
+  MiniPoll.prototype.note = function (msg) {
+    var n = this._body.querySelector('.mpoll-note');
+    if (!n) {
+      n = document.createElement('div');
+      n.className = 'mpoll-note'; n.setAttribute('role', 'alert');
+      this._body.appendChild(n);
+    }
+    n.textContent = msg;
+  };
+
+  /* ---------------- results ---------------- */
+  MiniPoll.prototype.showResults = function (results, yourId, state, revoteAt, isPreview) {
+    var self = this;
+    this._mode = 'results';
+    this._lastResults = results;
+    this._yourId = yourId;
+    this._revoteAt = revoteAt ? new Date(revoteAt).getTime() : 0;
+    var head = '<div class="mpoll-kicker">🔥 Community results</div>';
+    var foot = '';
+    if (state === 'closed') {
+      foot = '<div class="mpoll-sub">Voting has closed — final results.</div>';
+    } else if (state === 'cooldown' && this._revoteAt > Date.now()) {
+      foot = '<div class="mpoll-sub">You can vote again in <span class="mpoll-count" aria-live="off">…</span></div>';
+    } else if (state === 'cooldown') {
+      foot = '<button type="button" class="mpoll-again">🔄 Vote again</button>';
+    }
+    this._body.innerHTML = head +
+      '<div class="mpoll-bars" aria-live="polite"></div>' +
+      '<div class="mpoll-total"></div>' + foot +
+      (this._poll.disclaimer ? '<div class="mpoll-disc">' + esc(this._poll.disclaimer) + '</div>' : '');
+    this.paintBars(results);
+    var again = this._body.querySelector('.mpoll-again');
+    if (again) again.addEventListener('click', function () {
+      self.setTeaser(self._poll.description, false);
+      self.showVote(isPreview);
+    });
+    this.startCountdown();
+  };
+
+  MiniPoll.prototype.paintBars = function (results) {
+    var bars = this._body.querySelector('.mpoll-bars');
+    var totalEl = this._body.querySelector('.mpoll-total');
+    if (!bars) return;
+    if (!results || results.hidden) {
+      bars.innerHTML = '<div class="mpoll-sub">Results unlock when voting closes — ' +
+        (results && results.total || 0) + ' votes so far.</div>';
+      if (totalEl) totalEl.textContent = '';
+      return;
+    }
+    var yourId = this._yourId;
+    bars.innerHTML = results.options.map(function (o) {
+      var mine = String(o.option_id) === String(yourId);
+      return '<div class="mpoll-row' + (mine ? ' mine' : '') + '">' +
+        '<div class="mpoll-rowtop"><span>' + esc(o.emoji) + ' ' + esc(o.label) +
+        (mine ? ' <span class="mpoll-mine">· your pick</span>' : '') + '</span>' +
+        '<span class="mpoll-pct">' + o.pct + '%</span></div>' +
+        '<div class="mpoll-track"><div class="mpoll-fill" style="width:0%"></div></div></div>';
+    }).join('');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        var fills = bars.querySelectorAll('.mpoll-fill');
+        results.options.forEach(function (o, i) {
+          if (fills[i]) fills[i].style.width = Math.max(o.pct, o.votes ? 2 : 0) + '%';
+        });
+      });
+    });
+    if (totalEl) totalEl.textContent = (results.total || 0).toLocaleString() +
+      (results.total === 1 ? ' vote' : ' votes');
+  };
+
+  MiniPoll.prototype.startCountdown = function () {
+    var self = this;
+    if (this._timer) clearInterval(this._timer);
+    var el = function () { return self._body && self._body.querySelector('.mpoll-count'); };
+    var tick = function () {
+      var node = el();
+      if (!node) { clearInterval(self._timer); return; }
+      var ms = self._revoteAt - Date.now();
+      if (ms <= 0) {
+        clearInterval(self._timer);
+        var sub = self._body.querySelector('.mpoll-sub');
+        if (sub) {
+          sub.innerHTML = '';
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'mpoll-again'; b.textContent = '🔄 Vote again';
+          b.addEventListener('click', function () {
+            self.setTeaser(self._poll.description, false);
+            self.showVote(self._preview);
+          });
+          sub.appendChild(b);
+        }
+        return;
+      }
+      node.textContent = fmtCountdown(ms);
+    };
+    tick();
+    this._timer = setInterval(tick, 1000);
+  };
+
+  if (!window.customElements.get('mini-poll')) {
+    window.customElements.define('mini-poll', MiniPoll);
+  }
+  window.MiniPoll = { version: '1.5.1' };
+})();
+
 </script>
 </body>
 </html>

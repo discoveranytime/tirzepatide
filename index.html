@@ -611,6 +611,220 @@ mini-poll { display: block; }
   </div>
   <p class="scroll-hint">Scroll to explore ↓</p>
 </header>
+<!-- ============ MOLECULE SHOWCASE ============ -->
+<div class="wrap">
+<style>
+.tm-stage{margin:2.4rem 0 .4rem;padding:clamp(1.1rem,2.6vw,1.9rem) clamp(.8rem,2vw,1.5rem) 1.2rem;border-radius:var(--radius);
+  border:1px solid var(--line);background:linear-gradient(180deg,var(--card2),var(--card));
+  box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.tm-kicker{text-align:center;font-size:.7rem;font-weight:800;letter-spacing:.32em;color:var(--faint);text-transform:uppercase}
+.tm-kicker b{color:var(--org)}
+.tm-h{text-align:center;font-family:var(--disp);font-weight:900;letter-spacing:-.01em;
+  font-size:clamp(1.5rem,3.4vw,2.1rem);margin:.35rem 0 .3rem;color:var(--ink)}
+.tm-sub{text-align:center;color:var(--muted);max-width:640px;margin:0 auto;font-size:.98rem;line-height:1.6}
+.tm-flex{display:flex;gap:1.2rem;align-items:stretch;margin-top:.6rem}
+.tm-mol{flex:1 1 55%;min-width:0}
+.tm-mol svg{width:100%;height:auto;display:block}
+.tm-notes{flex:1 1 45%;display:flex;flex-direction:column;gap:.7rem;justify-content:center}
+.tm-note{border:1px solid var(--line);border-radius:14px;padding:.8rem .95rem;background:rgba(255,255,255,.025)}
+.tm-note h3{margin:0 0 .3rem;font-size:.86rem;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:.5rem}
+.tm-note h3 .dot{width:11px;height:11px;border-radius:50%;flex:none;display:inline-block}
+.tm-note p{margin:0;font-size:.83rem;line-height:1.55;color:var(--muted)}
+.tm-note p b{color:var(--ink)}
+@media (max-width:760px){.tm-flex{flex-direction:column}.tm-notes{justify-content:flex-start}}
+.tm-seq{margin-top:.95rem;border-top:1px solid var(--line);padding-top:.85rem;text-align:center;
+  font-size:.8rem;line-height:1.7;color:var(--muted)}
+.tm-seq b{display:block;font-size:.66rem;font-weight:800;letter-spacing:.3em;color:var(--faint);
+  text-transform:uppercase;margin-bottom:.3rem}
+.tm-seq .hl{color:var(--amber);font-weight:700}.tm-seq .hl2{color:var(--org);font-weight:700}
+.tm-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:.95rem}
+.tm-chip{border:1px solid var(--line);border-radius:999px;padding:.3rem .85rem;font-size:.76rem;color:var(--muted)}
+.tm-chip b{color:var(--ink)}
+.tm-cap{max-width:700px;margin:.95rem auto 0;text-align:center;color:var(--faint);font-size:.78rem;line-height:1.6}
+.tm-orbit{transform-origin:310px 374px;animation:tmOrbit 150s linear infinite}
+@keyframes tmOrbit{to{transform:rotate(360deg)}}
+.tm-ptcl{animation:tmPtFloat var(--pd,16s) ease-in-out var(--pdel,0s) infinite alternate}
+@keyframes tmPtFloat{from{transform:translate(0,0)}to{transform:translate(var(--px,10px),var(--py,-14px))}}
+@media (prefers-reduced-motion:reduce){
+  .tm-orbit,.tm-ptcl{animation:none !important}
+}
+</style>
+<section class="tm-stage" aria-label="The tirzepatide molecule">
+  <div class="tm-kicker">The Molecule <b>·</b> Tirzepatide (LY3298176)</div>
+  <h2 class="tm-h">One chain, two targets</h2>
+  <p class="tm-sub">A single 39-residue peptide, built on a GIP backbone, that activates two receptors — <strong>GIP and GLP-1</strong>. It is drawn here as a loose spiral, echoing the helical shape this kind of chain adopts when it docks at a receptor. Watch it flex: a real peptide chain is never sitting still.</p>
+  <div class="tm-flex">
+    <div class="tm-mol">
+    <svg id="tmSvg" viewBox="0 0 620 760" role="img" aria-label="Animated schematic of the tirzepatide molecule: a 39-residue chain coiled in a loose helix, with a fatty acid tail on lysine 20">
+      <defs>
+        <linearGradient id="tmGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7cc7ff"/><stop offset="55%" stop-color="#5eead4"/><stop offset="100%" stop-color="#fb923c"/>
+        </linearGradient>
+        <radialGradient id="tmNeb" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#0284c7" stop-opacity=".17"/><stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="310" cy="374" rx="285" ry="360" fill="url(#tmNeb)"/>
+      <g class="tm-orbit" fill="none" stroke-width="1.2">
+        <circle cx="310" cy="374" r="238" stroke="#7cc7ff" stroke-opacity=".22" stroke-dasharray="2 9"/>
+      </g>
+      <g fill="#bfe0ff">
+        <circle class="tm-ptcl" style="--pd:16s;--px:12px;--py:-14px" cx="96" cy="120" r="2.4" opacity=".55"/>
+        <circle class="tm-ptcl" style="--pd:20s;--pdel:-7s;--px:-12px;--py:-10px" cx="540" cy="640" r="2.1" opacity=".5"/>
+        <circle class="tm-ptcl" style="--pd:15s;--pdel:-4s;--px:10px;--py:12px" cx="52" cy="430" r="2" opacity=".5"/>
+        <circle class="tm-ptcl" style="--pd:22s;--pdel:-11s;--px:-9px;--py:13px" cx="520" cy="150" r="2.2" opacity=".45"/>
+        <circle class="tm-ptcl" style="--pd:17s;--pdel:-3s;--px:13px;--py:-11px" cx="210" cy="716" r="2" opacity=".5"/>
+      </g>
+      <g>
+      <path id="tmTailPath" d="M346.0 374.0 L316.0 376.0 L290.0 384.0 L268.0 396.0 L250.0 412.0 L230.0 404.0 L214.0 420.0 L194.0 414.0" fill="none" stroke="#fb923c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+      <path id="tmBackboneGlow" d="M371.4 84.0 Q414.5 99.3, 425.4 106.9 Q436.3 114.5, 434.4 122.2 Q432.5 129.8, 418.2 137.4 Q403.8 145.1, 379.9 152.7 Q356.1 160.3, 327.5 167.9 Q298.9 175.6, 271.5 183.2 Q244.0 190.8, 223.3 198.5 Q202.6 206.1, 192.7 213.7 Q182.9 221.4, 186.0 229.0 Q189.1 236.6, 204.5 244.3 Q219.8 251.9, 244.4 259.5 Q268.9 267.2, 297.6 274.8 Q326.3 282.4, 353.4 290.1 Q380.4 297.7, 400.3 305.3 Q420.2 312.9, 428.9 320.6 Q437.6 328.2, 433.3 335.8 Q429.1 343.5, 412.7 351.1 Q396.3 358.7, 371.2 366.4 Q346.0 374.0, 317.2 381.6 Q288.4 389.3, 261.8 396.9 Q235.2 404.5, 216.2 412.2 Q197.2 419.8, 189.6 427.4 Q182.1 435.1, 187.5 442.7 Q193.0 450.3, 210.3 457.9 Q227.7 465.6, 253.4 473.2 Q279.1 480.8, 307.9 488.5 Q336.8 496.1, 362.9 503.7 Q389.0 511.4, 407.1 519.0 Q425.2 526.6, 431.6 534.3 Q438.0 541.9, 431.4 549.5 Q424.8 557.2, 406.5 564.8 Q388.2 572.4, 362.0 580.1 Q335.8 587.7, 306.9 595.3 Q278.1 602.9, 252.5 610.6 Q226.9 618.2, 209.7 625.8 Q192.6 633.5, 187.4 641.1 Q182.1 648.7, 189.9 656.4 L197.7 664.0" fill="none" stroke="#5eead4" stroke-width="8" stroke-linecap="round" opacity=".12"/>
+      <path id="tmBackbone" d="M371.4 84.0 Q414.5 99.3, 425.4 106.9 Q436.3 114.5, 434.4 122.2 Q432.5 129.8, 418.2 137.4 Q403.8 145.1, 379.9 152.7 Q356.1 160.3, 327.5 167.9 Q298.9 175.6, 271.5 183.2 Q244.0 190.8, 223.3 198.5 Q202.6 206.1, 192.7 213.7 Q182.9 221.4, 186.0 229.0 Q189.1 236.6, 204.5 244.3 Q219.8 251.9, 244.4 259.5 Q268.9 267.2, 297.6 274.8 Q326.3 282.4, 353.4 290.1 Q380.4 297.7, 400.3 305.3 Q420.2 312.9, 428.9 320.6 Q437.6 328.2, 433.3 335.8 Q429.1 343.5, 412.7 351.1 Q396.3 358.7, 371.2 366.4 Q346.0 374.0, 317.2 381.6 Q288.4 389.3, 261.8 396.9 Q235.2 404.5, 216.2 412.2 Q197.2 419.8, 189.6 427.4 Q182.1 435.1, 187.5 442.7 Q193.0 450.3, 210.3 457.9 Q227.7 465.6, 253.4 473.2 Q279.1 480.8, 307.9 488.5 Q336.8 496.1, 362.9 503.7 Q389.0 511.4, 407.1 519.0 Q425.2 526.6, 431.6 534.3 Q438.0 541.9, 431.4 549.5 Q424.8 557.2, 406.5 564.8 Q388.2 572.4, 362.0 580.1 Q335.8 587.7, 306.9 595.3 Q278.1 602.9, 252.5 610.6 Q226.9 618.2, 209.7 625.8 Q192.6 633.5, 187.4 641.1 Q182.1 648.7, 189.9 656.4 L197.7 664.0" fill="none" stroke="url(#tmGrad)" stroke-width="3" stroke-linecap="round"/>
+      <g id="tmTailNodes">
+        <g class="tm-tnode" data-ox="-30" data-oy="2"><circle cx="316.0" cy="376.0" r="5.5" fill="#0d1020" stroke="#fb923c" stroke-width="2"/></g>
+        <g class="tm-tnode" data-ox="-56" data-oy="10"><circle cx="290.0" cy="384.0" r="5.5" fill="#0d1020" stroke="#fb923c" stroke-width="2"/></g>
+        <g class="tm-tnode" data-ox="-78" data-oy="22"><circle cx="268.0" cy="396.0" r="5.5" fill="#0d1020" stroke="#fb923c" stroke-width="2"/></g>
+        <g class="tm-tnode" data-ox="-96" data-oy="38"><circle cx="250.0" cy="412.0" r="4.6" fill="#fb923c"/></g>
+        <g class="tm-tnode" data-ox="-116" data-oy="30"><circle cx="230.0" cy="404.0" r="4.6" fill="#fb923c"/></g>
+        <g class="tm-tnode" data-ox="-132" data-oy="46"><circle cx="214.0" cy="420.0" r="4.6" fill="#fb923c"/></g>
+        <g class="tm-tnode" data-ox="-152" data-oy="40"><circle cx="194.0" cy="414.0" r="6.5" fill="#fb923c"/></g>
+      </g>
+      <g id="tmNodes">
+        <g class="tm-node" data-i="6" data-bx="298.9" data-by="175.6" opacity="0.52"><circle cx="298.9" cy="175.6" r="10.2" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="298.9" y="179.4" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">T</text></g>
+        <g class="tm-node" data-i="20" data-bx="288.4" data-by="389.3" opacity="0.52"><circle cx="288.4" cy="389.3" r="10.2" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="288.4" y="393.1" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">A</text></g>
+        <g class="tm-node" data-i="33" data-bx="335.8" data-by="587.7" opacity="0.52"><circle cx="335.8" cy="587.7" r="10.2" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="335.8" y="591.5" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">G</text></g>
+        <g class="tm-node" data-i="34" data-bx="278.1" data-by="602.9" opacity="0.53"><circle cx="278.1" cy="602.9" r="10.3" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="278.1" y="606.7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">A</text></g>
+        <g class="tm-node" data-i="19" data-bx="346.0" data-by="374.0" opacity="0.53"><circle cx="346.0" cy="374.0" r="11.1" fill="#fb923c" stroke="#0a0c17" stroke-width="1"/><text x="346.0" y="377.8" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">K</text></g>
+        <g class="tm-node" data-i="5" data-bx="356.1" data-by="160.3" opacity="0.54"><circle cx="356.1" cy="160.3" r="10.3" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="356.1" y="164.1" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">F</text></g>
+        <g class="tm-node" data-i="7" data-bx="244.0" data-by="190.8" opacity="0.55"><circle cx="244.0" cy="190.8" r="10.4" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="244.0" y="194.6" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">S</text></g>
+        <g class="tm-node" data-i="21" data-bx="235.2" data-by="404.5" opacity="0.57"><circle cx="235.2" cy="404.5" r="10.5" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="235.2" y="408.3" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">F</text></g>
+        <g class="tm-node" data-i="32" data-bx="388.2" data-by="572.4" opacity="0.57"><circle cx="388.2" cy="572.4" r="10.6" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="388.2" y="576.2" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">S</text></g>
+        <g class="tm-node" data-i="35" data-bx="226.9" data-by="618.2" opacity="0.58"><circle cx="226.9" cy="618.2" r="10.6" fill="#a9b1c9" stroke="#0a0c17" stroke-width="1"/><text x="226.9" y="622.0" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">P</text></g>
+        <g class="tm-node" data-i="18" data-bx="396.3" data-by="358.7" opacity="0.58"><circle cx="396.3" cy="358.7" r="10.6" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="396.3" y="362.5" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">Q</text></g>
+        <g class="tm-node" data-i="4" data-bx="403.8" data-by="145.1" opacity="0.60"><circle cx="403.8" cy="145.1" r="10.7" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="403.8" y="148.9" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">T</text></g>
+        <g class="tm-node" data-i="8" data-bx="202.6" data-by="206.1" opacity="0.63"><circle cx="202.6" cy="206.1" r="11.0" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="202.6" y="209.9" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">D</text></g>
+        <g class="tm-node" data-i="22" data-bx="197.2" data-by="419.8" opacity="0.65"><circle cx="197.2" cy="419.8" r="11.1" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="197.2" y="423.6" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">V</text></g>
+        <g class="tm-node" data-i="31" data-bx="424.8" data-by="557.2" opacity="0.65"><circle cx="424.8" cy="557.2" r="11.1" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="424.8" y="561.0" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">S</text></g>
+        <g class="tm-node" data-i="36" data-bx="192.6" data-by="633.5" opacity="0.66"><circle cx="192.6" cy="633.5" r="11.2" fill="#a9b1c9" stroke="#0a0c17" stroke-width="1"/><text x="192.6" y="637.3" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">P</text></g>
+        <g class="tm-node" data-i="17" data-bx="429.1" data-by="343.5" opacity="0.67"><circle cx="429.1" cy="343.5" r="11.3" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="429.1" y="347.3" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">A</text></g>
+        <g class="tm-node" data-i="3" data-bx="432.5" data-by="129.8" opacity="0.69"><circle cx="432.5" cy="129.8" r="11.4" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="432.5" y="133.6" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">G</text></g>
+        <g class="tm-node" data-i="9" data-bx="182.9" data-by="221.4" opacity="0.73"><circle cx="182.9" cy="221.4" r="11.7" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="182.9" y="225.2" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">Y</text></g>
+        <g class="tm-node" data-i="23" data-bx="182.1" data-by="435.1" opacity="0.75"><circle cx="182.1" cy="435.1" r="11.8" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="182.1" y="438.9" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">Q</text></g>
+        <g class="tm-node" data-i="30" data-bx="438.0" data-by="541.9" opacity="0.76"><circle cx="438.0" cy="541.9" r="11.9" fill="#a9b1c9" stroke="#0a0c17" stroke-width="1"/><text x="438.0" y="545.7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">P</text></g>
+        <g class="tm-node" data-i="37" data-bx="182.1" data-by="648.7" opacity="0.77"><circle cx="182.1" cy="648.7" r="12.0" fill="#a9b1c9" stroke="#0a0c17" stroke-width="1"/><text x="182.1" y="652.5" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">P</text></g>
+        <g class="tm-node" data-i="16" data-bx="437.6" data-by="328.2" opacity="0.78"><circle cx="437.6" cy="328.2" r="12.0" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="437.6" y="332.0" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">I</text></g>
+        <g class="tm-node" data-i="2" data-bx="436.3" data-by="114.5" opacity="0.80"><circle cx="436.3" cy="114.5" r="12.2" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="436.3" y="118.3" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">E</text></g>
+        <g class="tm-node" data-i="10" data-bx="189.1" data-by="236.6" opacity="0.84"><circle cx="189.1" cy="236.6" r="12.5" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="189.1" y="240.4" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">S</text></g>
+        <g class="tm-node" data-i="24" data-bx="193.0" data-by="450.3" opacity="0.86"><circle cx="193.0" cy="450.3" r="12.6" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="193.0" y="454.1" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">W</text></g>
+        <g class="tm-node" data-i="29" data-bx="425.2" data-by="526.6" opacity="0.86"><circle cx="425.2" cy="526.6" r="12.6" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="425.2" y="530.4" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">G</text></g>
+        <g class="tm-node" data-i="38" data-bx="197.7" data-by="664.0" opacity="0.88"><circle cx="197.7" cy="664.0" r="12.7" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="197.7" y="667.8" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">S</text></g>
+        <g class="tm-node" data-i="15" data-bx="420.2" data-by="312.9" opacity="0.88"><circle cx="420.2" cy="312.9" r="12.8" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="420.2" y="316.7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">K</text></g>
+        <g class="tm-node" data-i="1" data-bx="414.5" data-by="99.3" opacity="0.90"><circle cx="414.5" cy="99.3" r="13.7" fill="#fbbf24" stroke="#0a0c17" stroke-width="1"/><text x="414.5" y="103.1" text-anchor="middle" font-size="8" font-weight="800" fill="#0a0c14">Aib</text></g>
+        <g class="tm-node" data-i="11" data-bx="219.8" data-by="251.9" opacity="0.93"><circle cx="219.8" cy="251.9" r="13.1" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="219.8" y="255.7" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">I</text></g>
+        <g class="tm-node" data-i="25" data-bx="227.7" data-by="465.6" opacity="0.94"><circle cx="227.7" cy="465.6" r="13.2" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="227.7" y="469.4" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">L</text></g>
+        <g class="tm-node" data-i="28" data-bx="389.0" data-by="511.4" opacity="0.95"><circle cx="389.0" cy="511.4" r="13.2" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="389.0" y="515.2" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">G</text></g>
+        <g class="tm-node" data-i="14" data-bx="380.4" data-by="297.7" opacity="0.96"><circle cx="380.4" cy="297.7" r="13.3" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="380.4" y="301.5" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">D</text></g>
+        <g class="tm-node" data-i="0" data-bx="371.4" data-by="84.0" opacity="0.97"><circle cx="371.4" cy="84.0" r="13.4" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="371.4" y="87.8" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">Y</text></g>
+        <g class="tm-node" data-i="12" data-bx="268.9" data-by="267.2" opacity="0.99"><circle cx="268.9" cy="267.2" r="14.3" fill="#fbbf24" stroke="#0a0c17" stroke-width="1"/><text x="268.9" y="271.0" text-anchor="middle" font-size="8" font-weight="800" fill="#0a0c14">Aib</text></g>
+        <g class="tm-node" data-i="26" data-bx="279.1" data-by="480.8" opacity="0.99"><circle cx="279.1" cy="480.8" r="13.5" fill="#7cc7ff" stroke="#0a0c17" stroke-width="1"/><text x="279.1" y="484.6" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">I</text></g>
+        <g class="tm-node" data-i="27" data-bx="336.8" data-by="496.1" opacity="0.99"><circle cx="336.8" cy="496.1" r="13.6" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="336.8" y="499.9" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">A</text></g>
+        <g class="tm-node" data-i="13" data-bx="326.3" data-by="282.4" opacity="1.00"><circle cx="326.3" cy="282.4" r="13.6" fill="#5eead4" stroke="#0a0c17" stroke-width="1"/><text x="326.3" y="286.2" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0a0c14">L</text></g>
+      </g>
+      <g id="tmPulses">
+        <circle id="tmP1h" r="9" fill="#67e8f9" opacity=".22"/><circle id="tmP1" r="3.6" fill="#a5f3fc"/>
+        <circle id="tmP2h" r="9" fill="#5eead4" opacity=".22"/><circle id="tmP2" r="3.6" fill="#99f6e4"/>
+        <circle id="tmP3h" r="8" fill="#fb923c" opacity=".25"/><circle id="tmP3" r="3.2" fill="#ffcf9e"/>
+      </g>
+      <text x="355" y="64" text-anchor="end" font-size="12.5" font-weight="800" letter-spacing="1.6" fill="#a9b1c9">TYR1 · N-TERMINUS</text>
+      <text x="214" y="694" font-size="12.5" font-weight="800" letter-spacing="1.6" fill="#a9b1c9">SER39–NH₂ · C-TERMINUS</text>
+      </g>
+    </svg>
+    </div>
+    <div class="tm-notes">
+      <div class="tm-note"><h3><span class="dot" style="background:#fbbf24"></span>The DPP-4 shield</h3><p><b>Aib at positions 2 and 13.</b> These two non-natural building blocks stop the enzyme DPP-4 from snipping the chain apart — a big reason tirzepatide lasts days instead of minutes.</p></div>
+      <div class="tm-note"><h3><span class="dot" style="background:#fb923c"></span>The albumin hitchhiker</h3><p><b>Lys20 carries the C20 fatty-acid tail</b>, clipped on through a γ-Glu + (AEEA)₂ linker. The tail hitches onto albumin in the blood, stretching the half-life to <b>~5 days</b>.</p></div>
+      <div class="tm-note"><h3><span class="dot" style="background:#7cc7ff"></span>A borrowed backbone</h3><p>The chain is <b>built on the body's own GIP hormone</b>, re-tuned residue by residue until it also switches on the GLP-1 receptor — one molecule, two targets.</p></div>
+      <div class="tm-note"><h3><span class="dot" style="background:#a9b1c9"></span>The stiff tail end</h3><p><b>Prolines at 31, 36, 37 and 38</b> stiffen the final stretch, and the chain ends in an amidated Ser39 (–NH₂) that resists being trimmed.</p></div>
+    </div>
+  </div>
+  <div class="tm-seq"><b>Primary sequence · 39 residues</b>Tyr–<span class="hl">Aib</span>–Glu–Gly–Thr–Phe–Thr–Ser–Asp–Tyr–Ser–Ile–<span class="hl">Aib</span>–Leu–Asp–Lys–Ile–Ala–Gln–<span class="hl2">Lys(C20 diacid)</span>–Ala–Phe–Val–Gln–Trp–Leu–Ile–Ala–Gly–Gly–Pro–Ser–Ser–Gly–Ala–Pro–Pro–Pro–Ser–NH₂</div>
+  <div class="tm-chips"><span class="tm-chip"><b>39</b> amino acids</span><span class="tm-chip"><b>4,813 Da</b> molecular weight</span><span class="tm-chip"><b>GIP-derived</b> backbone</span><span class="tm-chip">half-life <b>~5 days</b></span></div>
+  <p class="tm-cap">Schematic of the primary structure in a helix-inspired arrangement — not its measured 3D fold or docked pose. The motion is an artist’s impression of molecular flexibility: real chains flex constantly, but this loop is not a measured simulation.</p>
+</section>
+</div>
+<script>
+(function(){
+  "use strict";
+  var svg = document.getElementById("tmSvg");
+  if (!svg) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var nodeEls = Array.prototype.slice.call(svg.querySelectorAll(".tm-node"));
+  nodeEls.sort(function(a,b){ return (+a.getAttribute("data-i")) - (+b.getAttribute("data-i")); });
+  var base = nodeEls.map(function(el){ return {x:+el.getAttribute("data-bx"), y:+el.getAttribute("data-by")}; });
+  var bp = document.getElementById("tmBackbone"), bg = document.getElementById("tmBackboneGlow");
+  var tailPath = document.getElementById("tmTailPath");
+  var tailEls = Array.prototype.slice.call(svg.querySelectorAll(".tm-tnode"));
+  var tailOff = tailEls.map(function(el){ return {x:+el.getAttribute("data-ox"), y:+el.getAttribute("data-oy")}; });
+  var pulses = [
+    {c:document.getElementById("tmP1"), h:document.getElementById("tmP1h"), sp:0.055, off:0.0, tail:false},
+    {c:document.getElementById("tmP2"), h:document.getElementById("tmP2h"), sp:0.041, off:0.45, tail:false},
+    {c:document.getElementById("tmP3"), h:document.getElementById("tmP3h"), sp:0.07, off:0.2, tail:true}
+  ];
+  function wave(i, t){
+    return {
+      x: 2.0*Math.sin(t*0.9 + i*0.42) + 1.0*Math.sin(t*1.6 + i*0.9),
+      y: 3.2*Math.sin(t*1.05 + i*0.38) + 1.3*Math.cos(t*0.6 + i*0.31)
+    };
+  }
+  function smooth(pts){
+    var d = "M" + pts[0].x.toFixed(1) + " " + pts[0].y.toFixed(1);
+    for (var i = 1; i < pts.length - 1; i++){
+      var mx = (pts[i].x + pts[i+1].x) / 2, my = (pts[i].y + pts[i+1].y) / 2;
+      d += " Q" + pts[i].x.toFixed(1) + " " + pts[i].y.toFixed(1) + ", " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    return d + " L" + pts[pts.length-1].x.toFixed(1) + " " + pts[pts.length-1].y.toFixed(1);
+  }
+  function along(pts, u){
+    var f = u * (pts.length - 1), i = Math.min(Math.floor(f), pts.length - 2), fr = f - i;
+    return { x: pts[i].x + (pts[i+1].x - pts[i].x) * fr, y: pts[i].y + (pts[i+1].y - pts[i].y) * fr };
+  }
+  var running = false, rafId = null;
+  function frame(ms){
+    if (!running) return;
+    var t = ms / 1000;
+    var pts = base.map(function(b, i){ var w = wave(i, t); return {x: b.x + w.x, y: b.y + w.y}; });
+    var d = smooth(pts);
+    bp.setAttribute("d", d); bg.setAttribute("d", d);
+    nodeEls.forEach(function(el, i){
+      el.setAttribute("transform", "translate(" + (pts[i].x - base[i].x).toFixed(2) + " " + (pts[i].y - base[i].y).toFixed(2) + ")");
+    });
+    var A = pts[19], Ab = base[19];
+    var tp = tailOff.map(function(o, k){
+      var lag = 0.05*Math.sin(t*0.85 - k*0.4) + 0.02*Math.sin(t*1.3 - k*0.2);
+      var c = Math.cos(lag), s = Math.sin(lag);
+      return { x: A.x + o.x*c - o.y*s, y: A.y + o.x*s + o.y*c, bx: Ab.x + o.x, by: Ab.y + o.y };
+    });
+    tailPath.setAttribute("d", "M" + tp.map(function(p){ return p.x.toFixed(1) + " " + p.y.toFixed(1); }).join(" L"));
+    tailEls.forEach(function(el, k){
+      el.setAttribute("transform", "translate(" + (tp[k].x - tp[k].bx).toFixed(2) + " " + (tp[k].y - tp[k].by).toFixed(2) + ")");
+    });
+    pulses.forEach(function(p){
+      var u = (t * p.sp + p.off) % 1;
+      var pos = along(p.tail ? tp : pts, u);
+      p.c.setAttribute("cx", pos.x.toFixed(1)); p.c.setAttribute("cy", pos.y.toFixed(1));
+      p.h.setAttribute("cx", pos.x.toFixed(1)); p.h.setAttribute("cy", pos.y.toFixed(1));
+    });
+    rafId = requestAnimationFrame(frame);
+  }
+  function start(){ if (!running){ running = true; rafId = requestAnimationFrame(frame); } }
+  function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); }
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? start() : stop(); }); },
+      {rootMargin: "120px"}).observe(svg);
+  } else { start(); }
+  document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
+})();
+</script>
+
 <!-- ============ CHAPTER 1 ============ -->
 <section class="chapter" id="ch1">
   <span class="eyebrow"><span class="n">01</span>The molecule</span>
